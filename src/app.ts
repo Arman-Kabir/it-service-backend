@@ -29,9 +29,9 @@ app.get("/", async(req: Request, res: Response, next: NextFunction) => {
 });
 
 //routes
-// app.use('/api/v1/auth',authRouter);
-// app.use('/api/v1/admins',adminsRouter);
-// app.use('/api/v1/users',userRouter);
+app.use('/api/v1/auth',authRouter);
+app.use('/api/v1/admins',adminsRouter);
+app.use('/api/v1/users',userRouter);
 // app.use('/api/v1/cows',cowsRouter);
 // app.use('/api/v1/orders',ordersRouter);
 
