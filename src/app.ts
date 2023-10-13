@@ -2,12 +2,8 @@ import express, { Application, NextFunction, Request, Response} from "express";
 import cors from "cors";
 // import ApiError from "./errors/ApiError";
 import globalErrorHandler from "./app/middlewares/globalErrorHandler";
-import authRouter from "./app/modules/auth/auth.route";
-import userRouter from "./app/modules/user/user.route";
-import adminsRouter from "./app/modules/admin/admin.route";
-import cowsRouter from "./app/modules/cows/cows.route";
-import ordersRouter from "./app/modules/orders/orders.route";
 import ApiError from "./errors/ApiError";
+import router from "./app/routes";
 var cookieParser = require('cookie-parser')
 
 const app: Application = express();
@@ -29,11 +25,7 @@ app.get("/", async(req: Request, res: Response, next: NextFunction) => {
 });
 
 //routes
-app.use('/api/v1/auth',authRouter);
-app.use('/api/v1/admins',adminsRouter);
-app.use('/api/v1/users',userRouter);
-// app.use('/api/v1/cows',cowsRouter);
-// app.use('/api/v1/orders',ordersRouter);
+app.use('/api/v1',router);
 
 app.use('*',(req: Request, res: Response, next: NextFunction) => {
   res.status(500).json({
