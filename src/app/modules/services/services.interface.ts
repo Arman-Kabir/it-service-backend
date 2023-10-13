@@ -1,43 +1,20 @@
 import { Types } from "mongoose";
 
-type Location =
-  | "Dhaka"
-  | "Chattogram"
-  | "Barishal"
-  | "Rajshahi"
-  | "Sylhet"
-  | "Comilla"
-  | "Rangpur"
-  | "Mymensingh";
+type Category = "Repair" | "Services";
 
-type Breed =
-  | "Brahman"
-  | "Nellore"
-  | "Sahiwal"
-  | "Gir"
-  | "Indigenous"
-  | "Tharparkar"
-  | "Kankrej";
-
-type Label = "for sale" | "sold out";
-
-type Category = "Dairy" | "Beef" | "DualPurpose";
-
-export type ICows = {
+export type IServices = {
   name: string;
-  age: number;
   price: number;
-  location: Location;
-  breed: Breed;
-  weight: number;
-  label: Label;
+  description: string;
+  rating?: number;
+  reviews?:string[];
   category: Category;
-  seller: Types.ObjectId;
+  slot: Types.ObjectId;
 };
 
 export type IFilters = {
   searchTerm?: string;
   minPrice?: Number;
   maxPrice?: Number;
-  location?:String;
+  location?: String;
 };
