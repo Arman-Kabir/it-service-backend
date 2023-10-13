@@ -1,13 +1,13 @@
 import { NextFunction, Request, Response } from 'express';
-import { createAdminService, loginAdminService } from './admin.service';
+import { AdminService } from './admin.service';
 import config from '../../../config';
 
 
 
-export const createAdmin = async (req: Request, res: Response, next: NextFunction) => {
+const createAdmin = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const userData = req.body;
-    const result = await createAdminService(userData);
+    const result = await AdminService.createAdmin(userData);
     console.log(req.cookies, 'cookie');
     res.status(200).json({
       success: true,
@@ -20,10 +20,10 @@ export const createAdmin = async (req: Request, res: Response, next: NextFunctio
   }
 };
 
-export const loginAdmin = async (req: Request, res: Response, next: NextFunction) => {
+const loginAdmin = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const adminData = req.body;
-    const result = await loginAdminService(adminData);
+    const result = await AdminService.loginAdmin(adminData);
 
     const { refreshToken, ...others } = result;
 
@@ -51,6 +51,11 @@ export const loginAdmin = async (req: Request, res: Response, next: NextFunction
     next(err);
   }
 };
+
+export const AdminController = {
+  createAdmin,
+  loginAdmin
+}
 
 
 

@@ -1,15 +1,15 @@
 import express from "express";
-import { deleteUser, getSingleUser, getUsers, myProfile, updateMyProfile, updateUser } from "./user.controller";
+import { UserController } from "./user.controller";
 import { auth } from "../../middlewares/auth";
 import { ENUM_USER_ROLE } from "../../../enums/user";
 
 const router = express.Router();
 
-router.get("/",auth(ENUM_USER_ROLE.ADMIN), getUsers);
-router.get("/my-profile",auth(ENUM_USER_ROLE.BUYER,ENUM_USER_ROLE.SELLER), myProfile);
-router.patch("/my-profile",auth(ENUM_USER_ROLE.BUYER,ENUM_USER_ROLE.SELLER), updateMyProfile);
-router.get("/:id",auth(ENUM_USER_ROLE.ADMIN), getSingleUser);
-router.patch("/:id",auth(ENUM_USER_ROLE.ADMIN), updateUser);
-router.delete("/:id",auth(ENUM_USER_ROLE.ADMIN), deleteUser);
+router.get("/",UserController.getUsers);
+router.get("/my-profile",UserController.myProfile);
+router.patch("/my-profile",UserController.updateMyProfile);
+router.get("/:id",UserController.getSingleUser);
+router.patch("/:id",UserController.updateUser);
+router.delete("/:id",UserController.deleteUser);
 
-export default router;
+export const UserRoutes = router;

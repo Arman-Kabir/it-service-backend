@@ -7,7 +7,7 @@ import ApiError from "../../../errors/ApiError";
 import { Secret } from "jsonwebtoken";
 var jwt = require('jsonwebtoken');
 
-export const createAdminService = async (payload: any): Promise<IAdmin> => {
+const createAdmin = async (payload: any): Promise<IAdmin> => {
   // console.log(payload);
   // Hash password
   // payload.password = await bcrypt.hash(payload.password, Number(config.bcrypt_salt_rounds))
@@ -19,7 +19,7 @@ export const createAdminService = async (payload: any): Promise<IAdmin> => {
 };
 
 
-export const loginAdminService = async (payload: any) => {
+const loginAdmin = async (payload: any) => {
   const { phoneNumber, password } = payload;
   // console.log(payload);
 
@@ -59,5 +59,10 @@ export const loginAdminService = async (payload: any) => {
   }
 
 };
+
+export const AdminService = {
+  createAdmin,
+  loginAdmin
+}
 
 

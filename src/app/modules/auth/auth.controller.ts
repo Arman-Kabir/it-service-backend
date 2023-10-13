@@ -1,13 +1,13 @@
 import { NextFunction, Request, Response } from 'express';
-import { createUserService, getRefreshTokenService, loginUserService } from './auth.service';
+import { AuthService } from './auth.service';
 import config from '../../../config';
 
 
 
-export const createUser = async (req: Request, res: Response, next: NextFunction) => {
+const createUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const userData = req.body;
-    const result = await createUserService(userData);
+    const result = await AuthService.createUser(userData);
     console.log(req.cookies, 'cookie');
     res.status(200).json({
       success: true,
@@ -20,10 +20,10 @@ export const createUser = async (req: Request, res: Response, next: NextFunction
   }
 };
 
-export const loginUser = async (req: Request, res: Response, next: NextFunction) => {
+const loginUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const userData = req.body;
-    const result = await loginUserService(userData);
+    const result = await AuthService.loginUser(userData);
 
     const { refreshToken, ...others } = result;
 
@@ -52,10 +52,10 @@ export const loginUser = async (req: Request, res: Response, next: NextFunction)
   }
 };
 
-export const getRefreshToken = async (req: Request, res: Response, next: NextFunction) => {
+const getRefreshToken = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const {refreshToken}= req.cookies;
-    const result = await getRefreshTokenService(refreshToken);
+    const { refreshToken } = req.cookies;
+    const result = await AuthService.getRefreshToken(refreshToken);
 
     // set refresh token into cookie
     const cookieOptions = {
@@ -63,7 +63,7 @@ export const getRefreshToken = async (req: Request, res: Response, next: NextFun
       httpOnly: true
     };
     res.cookie('refreshToken', refreshToken, cookieOptions);
-    
+
     res.status(200).json({
       success: true,
       statusCode: 200,
@@ -74,6 +74,12 @@ export const getRefreshToken = async (req: Request, res: Response, next: NextFun
     next(err);
   }
 };
+
+export const AuthController = {
+  createUser,
+  loginUser,
+  getRefreshToken
+}
 
 
 

@@ -1,8 +1,8 @@
 // import ApiError from "../../../errors/ApiError";
 import { SortOrder } from "mongoose";
 import { IPaginationOptions } from "../../../interfaces/pagination";
-import { ICows, IFilters } from "./services.interface";
-import { Cows } from "./services.model";
+import { IFilters, IServices } from "./services.interface";
+
 import ApiError from "../../../errors/ApiError";
 
 const getServices = async (
@@ -108,7 +108,7 @@ const getServices = async (
   };
 };
 
-const createService = (payload: any): Promise<ICows> => {
+const createService = (payload: any): Promise<IServices> => {
   const results = Cows.create(payload);
   // console.log(results);
 
@@ -118,12 +118,12 @@ const createService = (payload: any): Promise<ICows> => {
   return results;
 };
 
-export const getSingleService = (payload: string) => {
+const getSingleService = (payload: string) => {
   const data = Cows.find({ _id: payload }).populate("seller");
   //   console.log(data);
   return data;
 };
-export const updateService = async (id: string, payload: any, userData: any) => {
+const updateService = async (id: string, payload: any, userData: any) => {
   // console.log(userData);
   const cowData = await Cows.findOne({ _id: id });
   const sellerID = cowData?.seller.toHexString();
@@ -141,7 +141,7 @@ export const updateService = async (id: string, payload: any, userData: any) => 
 
 };
 
-export const deleteService = async (id: string, userData: any) => {
+const deleteService = async (id: string, userData: any) => {
 
   const cowData = await Cows.findOne({ _id: id });
   console.log(cowData);

@@ -7,7 +7,7 @@ import { User } from "../user/user.model";
 import { IUser } from "../user/user.interface";
 var jwt = require('jsonwebtoken');
 
-export const createUserService = async (payload: any): Promise<IUser> => {
+const createUser = async (payload: any): Promise<IUser> => {
   // console.log(payload);
   // Hash password
   // payload.password = await bcrypt.hash(payload.password, Number(config.bcrypt_salt_rounds))
@@ -19,7 +19,7 @@ export const createUserService = async (payload: any): Promise<IUser> => {
 };
 
 
-export const loginUserService = async (payload: any) => {
+const loginUser = async (payload: any) => {
   const { phoneNumber, password } = payload;
   // console.log(payload);
 
@@ -60,25 +60,25 @@ export const loginUserService = async (payload: any) => {
 
 };
 
-export const getRefreshTokenService = async (token: string) => {
+const getRefreshToken = async (token: string) => {
   //verify token
-  let verifiedToken=null ;
+  let verifiedToken = null;
   try {
-    verifiedToken = jwt.verify(token,config.jwt.refresh_secret);
+    verifiedToken = jwt.verify(token, config.jwt.refresh_secret);
     // console.log(verifiedToken);
 
   } catch (err) {
-    throw new ApiError(401,'Invalid refresh token');
+    throw new ApiError(401, 'Invalid refresh token');
   }
 
-  const {id,role} = verifiedToken;
+  const { id, role } = verifiedToken;
 
   //checking deleted user's refresh token
-  const isUserExist = await User.findOne({_id:id});
+  const isUserExist = await User.findOne({ _id: id });
   // console.log(isUserExist);
 
-  if(!isUserExist){
-    throw new ApiError(404,'User doesnt exist');
+  if (!isUserExist) {
+    throw new ApiError(404, 'User doesnt exist');
   }
 
   //generate new token
@@ -90,8 +90,14 @@ export const getRefreshTokenService = async (token: string) => {
   });
 
   return {
-    accessToken : newAccessToken
+    accessToken: newAccessToken
   }
 };
+
+export const AuthService = {
+  createUser,
+  loginUser,
+  getRefreshToken
+}
 
 
