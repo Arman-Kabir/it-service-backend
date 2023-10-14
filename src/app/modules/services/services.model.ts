@@ -4,6 +4,10 @@ import { Category } from "./services.constant";
 
 const servicesSchema = new Schema<IServices>(
   {
+    id: {
+      type: Number,
+      required: true
+    },
     name: {
       type: String,
       required: true
@@ -26,10 +30,6 @@ const servicesSchema = new Schema<IServices>(
       type: String,
       enum: Category,
       required: true
-    },
-    slot: {
-      type: Schema.Types.ObjectId,
-      ref: 'Slot'
     }
   },
   {

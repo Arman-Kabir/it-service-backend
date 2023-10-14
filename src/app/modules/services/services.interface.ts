@@ -1,15 +1,15 @@
 import { Types } from "mongoose";
 
-type Category = "Repair" | "Services";
+type Category = "Repair" | "Service";
 
 export type IServices = {
+  id: number;
   name: string;
   price: number;
   description: string;
   rating?: number;
-  reviews?:string[];
+  reviews?: string[];
   category: Category;
-  slot: Types.ObjectId;
 };
 
 export type IFilters = {

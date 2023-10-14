@@ -23,7 +23,7 @@ const getServices = async (
     res.status(200).json({
       success: true,
       statusCode: 200,
-      message: "Cows retrieved successfully",
+      message: "Services retrieved successfully",
       meta:result.meta,
       data: result.data,
     });
@@ -43,7 +43,7 @@ const createService = async (
     res.status(200).json({
       success: true,
       statusCode: 200,
-      message: "Cows created successfully",
+      message: "Service created successfully",
       data: result,
     });
   } catch (err) {
@@ -62,7 +62,7 @@ const getSingleService = async (
     res.status(200).json({
       success: true,
       statusCode: 200,
-      message: "Cow retrieved successfully",
+      message: "Service retrieved successfully",
       data: result,
     });
   } catch (err) {
@@ -78,13 +78,12 @@ const updateService = async (
   try {
     const id = req.params.id;
     const updatedData = req.body;
-    console.log(req.user);
-    // console.log(id, updatedData);    
-    const result = await ServicesService.updateService(id, updatedData,req.user);
+
+    const result = await ServicesService.updateService(id, updatedData);
     res.status(200).json({
       success: true,
       statusCode: 200,
-      message: "Cow updated successfully",
+      message: "Service updated successfully",
       data: result,
     });
   } catch (err) {
@@ -98,12 +97,11 @@ const deleteService = async (
 ) => {
   try {
     const id = req.params.id;
-    // console.log(id,req.user);
-    const result = await ServicesService.deleteService(id,req.user);
+    const result = await ServicesService.deleteService(id);
     res.status(200).json({
       success: true,
       statusCode: 200,
-      message: "Cow deleted successfully",
+      message: "Service deleted successfully",
       data: result,
     });
   } catch (err) {

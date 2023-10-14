@@ -113,57 +113,30 @@ const createService = (payload: any): Promise<IServices> => {
   const results = Services.create(payload);
   // console.log(results);
 
-  // if(!results){
-  //     throw new ApiError(400,'Failed to create Cows');
-  // }
+  if (!results) {
+    throw new ApiError(400, 'Failed to create Service');
+  }
   return results;
 };
 
 const getSingleService = (payload: string) => {
-  const data = Services.find({ _id: payload }).populate("seller");
+  const data = Services.find({ _id: payload });
   //   console.log(data);
   return data;
 };
-const updateService = async (id: string, payload: any, userData: any) => {
-  // console.log(userData);
-  const cowData = await Services.findOne({ _id: id });
-  // const sellerID = cowData?.seller.toHexString();
-  // console.log(sellerID);
-
-  // if (userData.id === sellerID) {
-  //   // console.log('matched');
-  //   const data = await Services.findByIdAndUpdate({ _id: id }, payload, {
-  //     new: true,
-  //   });
-  //   return data;
-  // } else {
-  //   throw new ApiError(400, 'you are not authorized to update this');
-  // }
-
+const updateService = async (id: string, payload: any) => {
+  const data = await Services.findByIdAndUpdate({ _id: id }, payload, {
+    new: true,
+  });
+  return data;
 };
 
-const deleteService = async (id: string, userData: any) => {
-
-  const cowData = await Services.findOne({ _id: id });
-  console.log(cowData);
-  console.log(userData);
-  // const sellerID = cowData?.seller.toHexString();
-
-  // if (userData.id === sellerID) {
-  //   const data = await Services.findOneAndDelete(
-  //     { _id: id },
-  //     {
-  //       new: true,
-  //     }
-  //   );
-  //   return data;
-  // } else {
-  //   throw new ApiError(400, 'you are not authorized to delete this');
-  // }
-
+const deleteService = async (id: string) => {
+  const data = await Services.findOneAndDelete({ _id: id }, { new: true, });
+  return data;
 };
 
-export const ServicesService={
+export const ServicesService = {
   createService,
   getServices,
   getSingleService,

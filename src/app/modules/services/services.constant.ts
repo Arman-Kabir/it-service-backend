@@ -1,2 +1,2 @@
 
-export const Category = ["Repair", "Services"];
+export const Category = ["Repair", "Service"];
