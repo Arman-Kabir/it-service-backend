@@ -1,12 +1,12 @@
 // import ApiError from "../../../errors/ApiError";
 import { SortOrder } from "mongoose";
 import { IPaginationOptions } from "../../../interfaces/pagination";
-import { IFilters, IServices } from "./services.interface";
+import { IFilters,  ISlots } from "./slots.interface";
 
 import ApiError from "../../../errors/ApiError";
-import { Services } from "./services.model";
+import {  Slots } from "./slots.model";
 
-const getServices = async (
+const getSlots = async (
   filters: IFilters,
   paginationOptions: IPaginationOptions
 ) => {
@@ -90,7 +90,7 @@ const getServices = async (
   // console.log(andConditions.length);
   // console.log(andConditions.length > 0 ? "HELLO" : "HEY");
 
-  const data = await Services.find(
+  const data = await Slots.find(
     andConditions.length > 0 ? { $and: andConditions } : {}
   )
     .sort(sortConditions)
@@ -98,7 +98,7 @@ const getServices = async (
     .limit(limit);
   // return data;
 
-  const count = await Services.countDocuments();
+  const count = await Slots.countDocuments();
   return {
     meta: {
       page,
@@ -109,8 +109,8 @@ const getServices = async (
   };
 };
 
-const createService = (payload: any): Promise<IServices> => {
-  const results = Services.create(payload);
+const createSlot = (payload: any): Promise<ISlots> => {
+  const results = Slots.create(payload);
   // console.log(results);
 
   // if(!results){
@@ -119,14 +119,14 @@ const createService = (payload: any): Promise<IServices> => {
   return results;
 };
 
-const getSingleService = (payload: string) => {
-  const data = Services.find({ _id: payload }).populate("seller");
+const getSingleSlot = (payload: string) => {
+  const data = Slots.find({ _id: payload }).populate("seller");
   //   console.log(data);
   return data;
 };
-const updateService = async (id: string, payload: any, userData: any) => {
+const updateSlot = async (id: string, payload: any, userData: any) => {
   // console.log(userData);
-  const cowData = await Services.findOne({ _id: id });
+  const cowData = await Slots.findOne({ _id: id });
   // const sellerID = cowData?.seller.toHexString();
   // console.log(sellerID);
 
@@ -142,9 +142,9 @@ const updateService = async (id: string, payload: any, userData: any) => {
 
 };
 
-const deleteService = async (id: string, userData: any) => {
+const deleteSlot = async (id: string, userData: any) => {
 
-  const cowData = await Services.findOne({ _id: id });
+  const cowData = await Slots.findOne({ _id: id });
   console.log(cowData);
   console.log(userData);
   // const sellerID = cowData?.seller.toHexString();
@@ -163,10 +163,10 @@ const deleteService = async (id: string, userData: any) => {
 
 };
 
-export const ServicesService={
-  createService,
-  getServices,
-  getSingleService,
-  updateService,
-  deleteService
+export const SlotsService={
+  createSlot,
+  getSlots,
+  getSingleSlot,
+  updateSlot,
+  deleteSlot
 }
