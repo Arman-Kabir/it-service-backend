@@ -23,7 +23,7 @@ const loginUser = async (payload: any) => {
   const { email, password } = payload;
   // console.log(payload);
 
-  const isAdminExist = await User.findOne({ email }, { _id: 1, password: 1, role: 1 });
+  const isAdminExist = await User.findOne({ email }, { _id: 1, password: 1, role: 1,email:1 });
   // console.log(isAdminExist);
 
   if (!isAdminExist) {
@@ -41,14 +41,16 @@ const loginUser = async (payload: any) => {
   // create access token & refresh token
   const accessToken = jwt.sign({
     id: isAdminExist?._id,
-    role: isAdminExist?.role
+    role: isAdminExist?.role,
+    email:isAdminExist?.email
   }, config.jwt.secret as Secret, {
     expiresIn: config.jwt.expires_in
   });
 
   const refreshToken = jwt.sign({
     id: isAdminExist?._id,
-    role: isAdminExist?.role
+    role: isAdminExist?.role,
+    email:isAdminExist?.email
   }, config.jwt.refresh_secret as Secret, {
     expiresIn: config.jwt.refresh_expires_in
   });
