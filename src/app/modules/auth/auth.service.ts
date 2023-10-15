@@ -20,10 +20,10 @@ const createUser = async (payload: any): Promise<IUser> => {
 
 
 const loginUser = async (payload: any) => {
-  const { phoneNumber, password } = payload;
+  const { email, password } = payload;
   // console.log(payload);
 
-  const isAdminExist = await User.findOne({ phoneNumber }, { _id: 1, password: 1, role: 1 });
+  const isAdminExist = await User.findOne({ email }, { _id: 1, password: 1, role: 1 });
   // console.log(isAdminExist);
 
   if (!isAdminExist) {

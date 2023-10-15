@@ -8,7 +8,7 @@ const createUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const userData = req.body;
     const result = await AuthService.createUser(userData);
-    console.log(req.cookies, 'cookie');
+    // console.log(req.cookies, 'cookie');
     res.status(200).json({
       success: true,
       statusCode: 200,

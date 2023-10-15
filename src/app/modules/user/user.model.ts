@@ -6,6 +6,11 @@ import config from '../../../config';
 
 const userSchema = new Schema<IUser>(
   {   
+    email: {
+      type: String,
+      required: true,
+      unique:true
+    },
     password: {
       type: String,
       required: true,
@@ -13,35 +18,18 @@ const userSchema = new Schema<IUser>(
     role: {
       type: String,
       enum: role,
-      required:true
     },
     name: {
       firstName: {
         type: String,
-        required: true,
       },
       lastName: {
         type: String,
-        required: true,
       },
     },
     phoneNumber: {
       type: String,
-      required: true,
-      unique:true,
-    },
-    address: {
-      type: String,
-      required: true,
-    },
-    budget: {
-      type: Number,
-      required: true,
-    },
-    income: {
-      type: Number,
-      required: true,
-    },
+    }
   },
   {
     timestamps: true,
