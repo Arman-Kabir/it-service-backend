@@ -11,7 +11,7 @@ const getAdmins = async (req: Request, res: Response, next: NextFunction) => {
       res.status(200).json({
           success: true,
           statusCode: 200,
-          message: "Users retrieved successfully",
+          message: "Admins retrieved successfully",
           data: result
       })
   } catch (err) {

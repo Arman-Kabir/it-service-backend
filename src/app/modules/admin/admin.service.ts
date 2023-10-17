@@ -10,7 +10,8 @@ var jwt = require('jsonwebtoken');
 
 
 const getAdmins = () => {
-  const data = User.find({ role: "admin" });
+  const data = User.find({ role: "admin" },{ _id: 1, password: 1, role: 1,email:1 });
+  console.log(data);
   return data;
 };
 
