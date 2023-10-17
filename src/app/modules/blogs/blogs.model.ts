@@ -1,34 +1,29 @@
 import { Schema, model } from "mongoose";
-import { IServices } from "./blogs.interface";
-import { Category } from "./blogs.constant";
+import { IBlogs } from "./blogs.interface";
 
-const servicesSchema = new Schema<IServices>(
+const blogsSchema = new Schema<IBlogs>(
   {
-    id: {
-      type: Number,
-      required: true
-    },
-    name: {
+    title: {
       type: String,
       required: true
     },
-    price: {
-      type: Number,
+    image: {
+      type: String,
+      required: true
+    },
+    author: {
+      type: String,
       required: true
     },
     description: {
       type: String,
       required: true
     },
-    rating:{
-      type:Number, 
-    },
     reviews:[{
       type:String
     }],
     category: {
-      type: String,
-      enum: Category,
+      type: String,      
       required: true
     }
   },
@@ -41,4 +36,4 @@ const servicesSchema = new Schema<IServices>(
 );
 
 // 3. Create a Model.
-export const Services = model<IServices>("Services", servicesSchema);
+export const Blogs = model<IBlogs>("Blogs", blogsSchema);

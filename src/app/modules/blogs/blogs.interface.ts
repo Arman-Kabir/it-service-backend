@@ -1,15 +1,14 @@
 import { Types } from "mongoose";
 
-type Category = "Repair" | "Service";
 
-export type IServices = {
-  id: number;
-  name: string;
-  price: number;
+
+export type IBlogs = {
+  title: string;
+  author:string;
+  image:string;
   description: string;
-  rating?: number;
   reviews?: string[];
-  category: Category;
+  category: string;
 };
 
 export type IFilters = {

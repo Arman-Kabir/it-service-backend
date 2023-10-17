@@ -1,10 +1,10 @@
 // import ApiError from "../../../errors/ApiError";
 import { SortOrder } from "mongoose";
 import { IPaginationOptions } from "../../../interfaces/pagination";
-import { IFilters, IServices } from "./blogs.interface";
+import { IBlogs, IFilters,  } from "./blogs.interface";
 
 import ApiError from "../../../errors/ApiError";
-import { Services } from "./blogs.model";
+import { Blogs } from "./blogs.model";
 
 const getBlogs = async (
   filters: IFilters,
@@ -90,7 +90,7 @@ const getBlogs = async (
   // console.log(andConditions.length);
   // console.log(andConditions.length > 0 ? "HELLO" : "HEY");
 
-  const data = await Services.find(
+  const data = await Blogs.find(
     andConditions.length > 0 ? { $and: andConditions } : {}
   )
     .sort(sortConditions)
@@ -98,7 +98,7 @@ const getBlogs = async (
     .limit(limit);
   // return data;
 
-  const count = await Services.countDocuments();
+  const count = await Blogs.countDocuments();
   return {
     meta: {
       page,
@@ -109,8 +109,8 @@ const getBlogs = async (
   };
 };
 
-const createBlog = (payload: any): Promise<IServices> => {
-  const results = Services.create(payload);
+const createBlog = (payload: any): Promise<IBlogs> => {
+  const results = Blogs.create(payload);
   // console.log(results);
 
   if (!results) {
@@ -120,19 +120,19 @@ const createBlog = (payload: any): Promise<IServices> => {
 };
 
 const getSingleBlog = (payload: string) => {
-  const data = Services.find({ _id: payload });
+  const data = Blogs.find({ _id: payload });
   //   console.log(data);
   return data;
 };
 const updateBlog = async (id: string, payload: any) => {
-  const data = await Services.findByIdAndUpdate({ _id: id }, payload, {
+  const data = await Blogs.findByIdAndUpdate({ _id: id }, payload, {
     new: true,
   });
   return data;
 };
 
 const deleteBlog = async (id: string) => {
-  const data = await Services.findOneAndDelete({ _id: id }, { new: true, });
+  const data = await Blogs.findOneAndDelete({ _id: id }, { new: true, });
   return data;
 };
 
