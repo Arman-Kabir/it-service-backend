@@ -3,6 +3,24 @@ import { AdminService } from './admin.service';
 import config from '../../../config';
 
 
+const getAdmins = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+      console.log(req.headers.authorization);
+      console.log(req.user);
+      const result = await AdminService.getAdmins();
+      res.status(200).json({
+          success: true,
+          statusCode: 200,
+          message: "Users retrieved successfully",
+          data: result
+      })
+  } catch (err) {
+      next(err);
+  }
+}
+
+
+
 
 const createAdmin = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -53,6 +71,7 @@ const loginAdmin = async (req: Request, res: Response, next: NextFunction) => {
 };
 
 export const AdminController = {
+  getAdmins,
   createAdmin,
   loginAdmin
 }

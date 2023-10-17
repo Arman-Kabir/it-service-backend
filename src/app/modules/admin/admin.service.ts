@@ -5,7 +5,16 @@ import bcrypt from 'bcrypt';
 import { generateAdminId } from "./admin.utils";
 import ApiError from "../../../errors/ApiError";
 import { Secret } from "jsonwebtoken";
+import { User } from "../user/user.model";
 var jwt = require('jsonwebtoken');
+
+
+const getAdmins = () => {
+  const data = User.find({ role: "admin" });
+  return data;
+};
+
+
 
 const createAdmin = async (payload: any): Promise<IAdmin> => {
   // console.log(payload);
@@ -61,6 +70,7 @@ const loginAdmin = async (payload: any) => {
 };
 
 export const AdminService = {
+  getAdmins,
   createAdmin,
   loginAdmin
 }
