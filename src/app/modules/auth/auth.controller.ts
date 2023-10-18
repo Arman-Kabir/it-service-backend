@@ -51,6 +51,23 @@ const loginUser = async (req: Request, res: Response, next: NextFunction) => {
     next(err);
   }
 };
+const changePassword = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const userData = req.body;
+    const id = req.params.id;
+    const result = await AuthService.changePassword(id,userData);
+
+    res.status(200).json({
+      success: true,
+      statusCode: 200,
+      message: "Password Changed successfully",
+      // data: result
+      data: result
+    })
+  } catch (err) {
+    next(err);
+  }
+};
 
 const getRefreshToken = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -77,6 +94,7 @@ const getRefreshToken = async (req: Request, res: Response, next: NextFunction) 
 
 export const AuthController = {
   createUser,
+  changePassword,
   loginUser,
   getRefreshToken
 }

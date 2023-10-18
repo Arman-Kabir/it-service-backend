@@ -23,7 +23,7 @@ const loginUser = async (payload: any) => {
   const { email, password } = payload;
   // console.log(payload);
 
-  const isAdminExist = await User.findOne({ email }, { _id: 1, password: 1, role: 1,email:1 });
+  const isAdminExist = await User.findOne({ email }, { _id: 1, password: 1, role: 1, email: 1 });
   // console.log(isAdminExist);
 
   if (!isAdminExist) {
@@ -42,7 +42,7 @@ const loginUser = async (payload: any) => {
   const accessToken = jwt.sign({
     id: isAdminExist?._id,
     role: isAdminExist?.role,
-    email:isAdminExist?.email
+    email: isAdminExist?.email
   }, config.jwt.secret as Secret, {
     expiresIn: config.jwt.expires_in
   });
@@ -50,7 +50,7 @@ const loginUser = async (payload: any) => {
   const refreshToken = jwt.sign({
     id: isAdminExist?._id,
     role: isAdminExist?.role,
-    email:isAdminExist?.email
+    email: isAdminExist?.email
   }, config.jwt.refresh_secret as Secret, {
     expiresIn: config.jwt.refresh_expires_in
   });
@@ -59,6 +59,33 @@ const loginUser = async (payload: any) => {
     accessToken,
     refreshToken
   }
+
+};
+
+const changePassword = async (id: string, payload: any) => {
+  const { old_password, new_password } = payload;
+
+  const updatedPassword = await bcrypt.hash(new_password, Number(config.bcrypt_salt_rounds));
+  // console.log(payload);
+
+  const isAdminExist = await User.findOne({ _id: id }, { _id: 1, password: 1, role: 1, email: 1 });
+  console.log(isAdminExist);
+
+  if (!isAdminExist) {
+    throw new ApiError(400, 'User not exist');
+  }
+
+  // // Match password
+  const isPasswordMatched = await bcrypt.compare(old_password, isAdminExist?.password);
+  console.log(isPasswordMatched);
+  // // console.log(isPasswordMatched);
+  if (!isPasswordMatched) {
+    throw new ApiError(500, 'Password not matched');
+  };
+
+  const updatePassword = await User.updateOne({ _id: id }, { password: updatedPassword });
+
+  return updatePassword;
 
 };
 
@@ -98,6 +125,7 @@ const getRefreshToken = async (token: string) => {
 
 export const AuthService = {
   createUser,
+  changePassword,
   loginUser,
   getRefreshToken
 }
