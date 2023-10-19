@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { createOrdersService, getOrdersService, getSingleOrderService } from "./booking.service";
+import { BookingService } from "./booking.service";
 
 const createBooking = async (
   req: Request,
@@ -8,7 +8,7 @@ const createBooking = async (
 ) => {
   try {
     const ordersData = req.body;
-    const result = await createOrdersService(ordersData);
+    const result = await BookingService.createBooking(ordersData);
     res.status(200).json({
       success: true,
       statusCode: 200,
@@ -27,7 +27,7 @@ const getBooking = async (
 ) => {
   try {
     // console.log(req.user);
-    const result = await getOrdersService(req.user);
+    const result = await BookingService.getBooking(req.user);
     res.status(200).json({
       success: true,
       statusCode: 200,
@@ -46,8 +46,8 @@ const getSingleBooking = async (
 ) => {
   try {
     // console.log(req.user);
-    const orderId = req.params;
-    const result = await getSingleOrderService(orderId, req.user);
+    const orderId = req.params.id;
+    const result = await BookingService.getSingleBooking(orderId);
     res.status(200).json({
       success: true,
       statusCode: 200,

@@ -20,9 +20,10 @@ const getBooking = async (userData: any) => {
 
 };
 
-const getSingleBooking = async (bookingId: any, userData: any) => {
-  
-    const data = await Booking.find({ _id:bookingId }).populate(["user", "services"]);
+const getSingleBooking = async (bookingId: any) => {
+  console.log(bookingId);
+  // .populate(["user", "services"])
+    const data = await Booking.find({ _id:bookingId }).populate(["user", "services.serviceId"]);
     return data;
 };
 
