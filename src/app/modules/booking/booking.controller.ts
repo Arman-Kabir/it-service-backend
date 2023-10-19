@@ -59,8 +59,29 @@ const getSingleBooking = async (
   }
 };
 
+const deleteBooking = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    // console.log(req.user);
+    const id = req.params.id;
+    const result = await BookingService.deleteBooking(id);
+    res.status(200).json({
+      success: true,
+      statusCode: 200,
+      message: "Booking retrieved successfully",
+      data: result,
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
 export const BookingController = {
   createBooking,
+  deleteBooking,
   getBooking,
   getSingleBooking
 }

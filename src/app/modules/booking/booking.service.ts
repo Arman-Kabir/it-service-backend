@@ -28,8 +28,16 @@ const getSingleBooking = async (bookingId: any) => {
     return data;
 };
 
+const deleteBooking = async (id: any) => {
+  // console.log(id);
+  // .populate(["user", "services"])
+    const data = await Booking.findOneAndDelete({ _id:id }).populate(["userId", "serviceId"]);
+    return data;
+};
+
 export const BookingService = {
   createBooking,
+  deleteBooking,
   getBooking,
   getSingleBooking
 }
