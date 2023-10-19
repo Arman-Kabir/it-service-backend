@@ -3,26 +3,35 @@ import { IBooking } from "./booking.interface";
 
 const bookingSchema = new Schema<IBooking>(
   {
-    user: {
+
+    userId: {
       type: Schema.Types.ObjectId,
-      required: true,
+      // required: true,
       ref: "User",
     },
-    services: [
-      {
-        serviceId: {
-          type: Schema.Types.ObjectId,
-          required: true,
-          ref: "Services",
-        },
-        date: {
-          type: String
-        },
-        slot: {
-          type: String
-        }
-      },
-    ],
+    serviceId: {
+      type: Schema.Types.ObjectId,
+      // required: true,
+      ref: "Services",
+    },
+    name: {
+      type: String
+    },
+    category: {
+      type: String
+    },
+    image: {
+      type: String
+    },   
+    price: {
+      type: String
+    },
+    date: {
+      type: String
+    },
+    slot: {
+      type: String
+    }
   },
   {
     timestamps: true,

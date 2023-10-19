@@ -7,6 +7,7 @@ import { Booking } from "./booking.model";
 
 const createBooking = async (payload: any) => {
   try {
+    console.log(payload);
     const result = await Booking.create(payload);
     return result;
   } catch (error) {
@@ -21,9 +22,9 @@ const getBooking = async (userData: any) => {
 };
 
 const getSingleBooking = async (bookingId: any) => {
-  console.log(bookingId);
+  // console.log(bookingId);
   // .populate(["user", "services"])
-    const data = await Booking.find({ _id:bookingId }).populate(["user", "services.serviceId"]);
+    const data = await Booking.find({ _id:bookingId }).populate(["userId", "serviceId"]);
     return data;
 };
 
