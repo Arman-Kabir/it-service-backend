@@ -110,11 +110,26 @@ const getServices = async (
 };
 
 const createService = (payload: any): Promise<IServices> => {
+  console.log(payload);
   const results = Services.create(payload);
   // console.log(results);
 
   if (!results) {
     throw new ApiError(400, 'Failed to create Service');
+  }
+  return results;
+};
+
+
+const addReview = async (id: string, payload: any) => {
+  console.log(payload);
+  const {review} = payload;
+  console.log(review);
+  const results = await Services.findOneAndUpdate({ _id: id }, { $push: { reviews: review }},{new:true} );
+  // // console.log(results);
+
+  if (!results) {
+    throw new ApiError(400, 'Failed to Add Review');
   }
   return results;
 };
@@ -138,6 +153,7 @@ const deleteService = async (id: string) => {
 
 export const ServicesService = {
   createService,
+  addReview,
   getServices,
   getSingleService,
   updateService,

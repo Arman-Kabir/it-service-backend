@@ -51,6 +51,27 @@ const createService = async (
   }
 };
 
+
+const addReview = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const id = req.params.id;
+    const userData = req.body;
+    const result = await ServicesService.addReview(id,userData);
+    res.status(200).json({
+      success: true,
+      statusCode: 200,
+      message: "Review added successfully",
+      data: result,
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
 const getSingleService = async (
   req: Request,
   res: Response,
@@ -112,6 +133,7 @@ const deleteService = async (
 export const ServicesController={
   getServices,
   createService,
+  addReview,
   getSingleService,
   updateService,
   deleteService

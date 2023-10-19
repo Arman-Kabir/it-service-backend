@@ -6,6 +6,7 @@ export type IServices = {
   id: number;
   name: string;
   price: number;
+  image?:string;
   description: string;
   rating?: number;
   reviews?: string[];
