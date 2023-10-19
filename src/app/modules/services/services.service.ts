@@ -147,6 +147,7 @@ const updateService = async (id: string, payload: any) => {
 };
 
 const deleteService = async (id: string) => {
+  console.log(id);
   const data = await Services.findOneAndDelete({ _id: id }, { new: true, });
   return data;
 };

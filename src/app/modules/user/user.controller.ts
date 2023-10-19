@@ -80,10 +80,12 @@ const updateUser = async (req: Request, res: Response, next: NextFunction) => {
     } catch (err) {
         next(err);
     }
-}
+};
+
 const deleteUser = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const id = req.params.id;
+        // console.log(id);
 
         const result = await UserService.deleteUser(id);
         res.status(200).json({

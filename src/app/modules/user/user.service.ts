@@ -33,6 +33,7 @@ const updateUser = async (id: string, payload: any) => {
 };
 
 const deleteUser = async (id: string) => {
+  // console.log(id);
   const data = await User.findOneAndDelete({ _id: id }, {
     new: true,
   });

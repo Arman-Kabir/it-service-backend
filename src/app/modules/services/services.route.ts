@@ -10,6 +10,6 @@ router.get("/", ServicesController.getServices);
 router.get("/:id", ServicesController.getSingleService);
 router.post("/:id/review", ServicesController.addReview);
 router.patch("/:id/update", ServicesController.updateService);
-router.delete("/:id", ServicesController.deleteService);
+router.delete("/:id/delete", ServicesController.deleteService);
 
 export const ServicesRoutes = router;
